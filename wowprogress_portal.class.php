@@ -36,16 +36,16 @@ class wowprogress_portal extends portal_generic {
 	);
 	
 	private $tiers = array(
-		'tier8', 'tier9_10', 'tier9_25', 'tier10_10', 'tier10_25', 'tier11', 'tier11_10', 'tier11_25','tier12','tier12_10','tier12_25', 'tier13', 'tier13_10','tier13_25','tier14','tier14_10','tier14_25','tier15', 'tier15_10', 'tier15_25',
+		'tier8', 'tier9_10', 'tier9_25', 'tier10_10', 'tier10_25', 'tier11', 'tier11_10', 'tier11_25','tier12','tier12_10','tier12_25', 'tier13', 'tier13_10','tier13_25','tier14','tier14_10','tier14_25','tier15', 'tier15_10', 'tier15_25','tier16', 'tier16_10', 'tier16_25',
 	);
-	
+
 	public function get_settings($state){
 		$arrTiers;
 		//Build Tear Multiselect
 		foreach($this->tiers as $strTier){
 			$strNumbers = str_replace("tier", "", $strTier);
 			$arrNumbers = explode("_", $strNumbers);
-			
+
 			$arrTiers[$strTier] = $this->user->lang('wp_tier').' '.$arrNumbers[0].((isset($arrNumbers[1])) ? ' ('.$arrNumbers[1].')' : '');
 		}
 		
@@ -64,10 +64,11 @@ class wowprogress_portal extends portal_generic {
 		if ($this->game->get_game() != "wow") return $this->user->lang('wp_wow_only');
 		
 		$strOut = $this->pdc->get('portal.modul.wowprogress',false,true);
+		
 		if($strOut === NULL){
-						
 			$arrEncounter = unserialize($this->config->get('pk_wowprogress_encounter'));
 			$strBaseURL = $this->buildURL();
+
 			$strOut = '<table width="100%" class="colorswitch">';
 			foreach($arrEncounter as $strKey){
 				$strURL = $strBaseURL .'rating.'.$strKey.'/json_rank';
@@ -76,7 +77,7 @@ class wowprogress_portal extends portal_generic {
 				if ($arrResult != NULL){
 					$strNumbers = str_replace("tier", "", $strKey);
 					$arrNumbers = explode("_", $strNumbers);
-					
+
 					$strOut.='<tr>';
 					$strOut.='<th colspan="2">'.$this->user->lang('wp_ranking').' '.$this->user->lang('wp_tier').' '.$arrNumbers[0];
 					if(isset($arrNumbers[1])) $strOut .= ' - '.$arrNumbers[1].' '.$this->user->lang('wp_man');
@@ -87,8 +88,6 @@ class wowprogress_portal extends portal_generic {
 					$strOut.='</tr>';
 				}
 			}
-			
-			
 			$strOut .= '</table>';
 			$this->pdc->put('portal.modul.wowprogress',$strOut,3600,false,true);
 		}
@@ -96,12 +95,11 @@ class wowprogress_portal extends portal_generic {
 	}
 	
 	private function buildURL(){
-		$url = "http://www.wowprogress.com/";
-		$search = array('+',"'"," ");
-		$server = urlencode(strtolower(str_replace($search, '-',$this->config->get('uc_servername'))));
-		$guild = str_replace($search, '+', urlencode(utf8_encode(strtolower($this->config->get('guildtag')))));
-		
-		$url .= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
+		$url	= "http://www.wowprogress.com/";
+		$search	= array('+',"'"," ");
+		$server	= urlencode(strtolower(str_replace($search, '-',$this->config->get('uc_servername'))));
+		$guild	= str_replace($search, '+', urlencode(utf8_encode(strtolower($this->config->get('guildtag')))));
+		$url	.= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
 		return $url;
 	}
 
