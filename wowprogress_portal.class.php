@@ -49,7 +49,7 @@ class wowprogress_portal extends portal_generic {
 		
 		$settings	= array(
 			'encounter' => array(
-				'type'		=> 'jq_multiselect',
+				'type'		=> 'multiselect',
 				'options'	=> $arrTiers,
 			),
 		);
