@@ -21,18 +21,16 @@ if ( !defined('EQDKP_INC') ){
 }
 
 class wowprogress_portal extends portal_generic {
-	public static function __shortcuts() {
-		$shortcuts = array('user', 'pdh', 'pfh', 'core', 'db', 'tpl', 'config', 'puf'	=> 'urlfetcher', 'in', 'game', 'pdc');
-		return array_merge(parent::$shortcuts, $shortcuts);
-	}
-
-	protected $path		= 'wowprogress';
-	protected $data		= array(
+	
+	public static $shortcuts = array('puf'	=> 'urlfetcher', 'in');
+	protected static $path		= 'wowprogress';
+	protected static $data		= array(
 		'name'			=> 'wowprogress',
 		'version'		=> '0.2.0',
 		'author'		=> 'GodMod',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Shows the WoW Guildprogress',
+		'lang_prefix'	=> 'wowprogress_'
 	);
 	
 	private $tiers = array(
@@ -50,10 +48,8 @@ class wowprogress_portal extends portal_generic {
 		}
 		
 		$settings	= array(
-			'pk_wowprogress_encounter' => array(
-				'name'		=> 'pk_wowprogress_encounter',
-				'language'	=> 'wp_encounter',
-				'property'	=> 'jq_multiselect',
+			'encounter' => array(
+				'type'		=> 'jq_multiselect',
 				'options'	=> $arrTiers,
 			),
 		);
@@ -66,7 +62,7 @@ class wowprogress_portal extends portal_generic {
 		$strOut = $this->pdc->get('portal.modul.wowprogress',false,true);
 		
 		if($strOut === NULL){
-			$arrEncounter = unserialize($this->config->get('pk_wowprogress_encounter'));
+			$arrEncounter = unserialize($this->config('encounter'));
 			$strBaseURL = $this->buildURL();
 
 			$strOut = '<table width="100%" class="colorswitch">';
