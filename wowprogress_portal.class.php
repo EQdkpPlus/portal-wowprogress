@@ -62,7 +62,7 @@ class wowprogress_portal extends portal_generic {
 		$strOut = $this->pdc->get('portal.modul.wowprogress',false,true);
 		
 		if($strOut === NULL){
-			$arrEncounter = unserialize($this->config('encounter'));
+			$arrEncounter = $this->config('encounter');
 			$strBaseURL = $this->buildURL();
 
 			$strOut = '<table width="100%" class="colorswitch">';
