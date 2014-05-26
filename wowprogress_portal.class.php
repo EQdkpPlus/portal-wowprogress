@@ -22,7 +22,7 @@ if ( !defined('EQDKP_INC') ){
 
 class wowprogress_portal extends portal_generic {
 	
-	public static $shortcuts = array('puf'	=> 'urlfetcher', 'in');
+	public static $shortcuts = array('puf'	=> 'urlfetcher');
 	protected static $path		= 'wowprogress';
 	protected static $data		= array(
 		'name'			=> 'wowprogress',
