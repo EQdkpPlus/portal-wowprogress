@@ -30,7 +30,8 @@ class wowprogress_portal extends portal_generic {
 		'author'		=> 'GodMod',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Shows the WoW Guildprogress',
-		'lang_prefix'	=> 'wowprogress_'
+		'lang_prefix'	=> 'wowprogress_',
+		'icon'			=> 'fa-bar-chart-o',
 	);
 	
 	private $tiers = array(
