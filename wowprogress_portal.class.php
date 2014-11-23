@@ -96,7 +96,7 @@ class wowprogress_portal extends portal_generic {
 	private function buildURL(){
 		$url	= "http://www.wowprogress.com/";
 		$search	= array('+',"'"," ");
-		$server	= urlencode(strtolower(str_replace($search, '-',$this->config->get('uc_servername'))));
+		$server	= urlencode(strtolower(str_replace($search, '-',$this->config->get('servername'))));
 		$guild	= str_replace($search, '+', urlencode(utf8_encode(strtolower($this->config->get('guildtag')))));
 		$url	.= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
 		return $url;
