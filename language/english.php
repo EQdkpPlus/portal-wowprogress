@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	WoWprogress Portal Module
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -19,22 +19,29 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !defined('EQDKP_INC') ){
-	header('HTTP/1.0 404 Not Found');exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$lang = array(
-	'wowprogress'					=> 'WoWProgress',
-	'wowprogress_desc'				=> 'Shows the WoW Ranks from wowprogress.com ',
-	'wowprogress_name'				=> 'WoWProgress',
-	'wp_tier'						=> 'Tier',
-	'wowprogress_f_encounter'		=> 'Bosskills',
-	'wp_ranking'					=> 'Ranking',
-	'wp_man'						=> 'Man',
-	'wp_world'						=> 'World-Rank',
-	'wp_rank'						=> 'Rank',
-	'wp_realm'						=> 'Realm-Rank',
-	'wp_wow_only'					=> 'This module is for the game "WoW" only.',
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: portal/wowprogress/language/english.php
+//Source-Language: german
+
+$lang = array( 
+	"wowprogress" => 'WoWProgress',
+	"wowprogress_desc" => 'Shows the WoW Ranks from wowprogress.com ',
+	"wowprogress_name" => 'WoWProgress',
+	"wp_tier" => 'Tier',
+	"wowprogress_f_encounter" => 'Bosskills',
+	"wp_ranking" => 'Ranking',
+	"wp_man" => 'Man',
+	"wp_world" => 'World-Rank',
+	"wp_rank" => 'Rank',
+	"wp_realm" => 'Realm-Rank',
+	"wp_wow_only" => 'This module is for the game "WoW" only.',
+	
 );
 
 ?>
