@@ -71,7 +71,7 @@ class wowprogress_portal extends portal_generic {
 			$arrEncounter = $this->config('encounter');
 			$strBaseURL = $this->buildURL();
 
-			$strOut = '<table width="100%" class="colorswitch">';
+			$strOut = '<table class="table fullwidth colorswitch">';
 			foreach($arrEncounter as $strKey){
 				$strURL = $strBaseURL .'rating.'.$strKey.'/json_rank';
 				$strResult = $this->puf->fetch($strURL);
