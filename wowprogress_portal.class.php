@@ -65,7 +65,7 @@ class wowprogress_portal extends portal_generic {
 	public function output() {
 		if ($this->game->get_game() != "wow") return $this->user->lang('wp_wow_only');
 		
-		$strOut = $this->pdc->get('portal.modul.wowprogress',false,true);
+		$strOut = $this->pdc->get('portal.module.wowprogress',false,true);
 		
 		if($strOut === NULL){
 			$arrEncounter = $this->config('encounter');
@@ -91,7 +91,7 @@ class wowprogress_portal extends portal_generic {
 				}
 			}
 			$strOut .= '</table>';
-			$this->pdc->put('portal.modul.wowprogress',$strOut,3600,false,true);
+			$this->pdc->put('portal.module.wowprogress',$strOut,3600,false,true);
 		}
 		return $strOut;
 	}
