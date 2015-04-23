@@ -29,7 +29,7 @@ class wowprogress_portal extends portal_generic {
 	protected static $path		= 'wowprogress';
 	protected static $data		= array(
 		'name'			=> 'wowprogress',
-		'version'		=> '0.3.1',
+		'version'		=> '0.3.2',
 		'author'		=> 'GodMod',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Shows the WoW Guildprogress',
@@ -99,8 +99,8 @@ class wowprogress_portal extends portal_generic {
 	private function buildURL(){
 		$url	= "http://www.wowprogress.com/";
 		$search	= array('+',"'"," ");
-		$server	= urlencode(strtolower(str_replace($search, '-',$this->config->get('servername'))));
-		$guild	= str_replace($search, '+', urlencode(utf8_encode(strtolower($this->config->get('guildtag')))));
+		$server	= urlencode(strtolower(str_replace($search, '-', unsanitize($this->config->get('servername')))));
+		$guild	= str_replace($search, '+', urlencode(utf8_encode(strtolower(unsanitize($this->config->get('guildtag'))))));
 		$url	.= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
 		return $url;
 	}
