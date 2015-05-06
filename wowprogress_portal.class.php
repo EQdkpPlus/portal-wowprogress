@@ -100,7 +100,7 @@ class wowprogress_portal extends portal_generic {
 		$url	= "http://www.wowprogress.com/";
 		$search	= array('+',"'"," ");
 		$server	= urlencode(strtolower(str_replace($search, '-', unsanitize($this->config->get('servername')))));
-		$guild	= str_replace($search, '+', urlencode(utf8_encode(strtolower(unsanitize($this->config->get('guildtag'))))));
+		$guild	= str_replace($search, '+', urlencode(utf8_strtolower(unsanitize($this->config->get('guildtag')))));
 		$url	.= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
 		return $url;
 	}
