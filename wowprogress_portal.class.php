@@ -84,9 +84,9 @@ class wowprogress_portal extends portal_generic {
 					$strOut.='<th colspan="2">'.$this->user->lang('wp_ranking').' '.$this->user->lang('wp_tier').' '.$arrNumbers[0];
 					if(isset($arrNumbers[1])) $strOut .= ' - '.$arrNumbers[1].' '.$this->user->lang('wp_man');
 					$strOut.='</th>';
-					$strOut.='<tr><td>'.$this->user->lang('wp_world').'</td><td>'.$arrResult["world_rank"].'</td></tr>';
-					$strOut.='<tr><td>'.strtoupper($this->config->get('uc_server_loc')).'-'.$this->user->lang('wp_rank').'</td><td>'.$arrResult["area_rank"].'</td></tr>';
-					$strOut.='<tr><td>'.$this->user->lang('wp_realm').'</td><td>'.$arrResult["realm_rank"].'</td></tr>';
+					$strOut.='<tr><td>'.$this->user->lang('wp_world').'</td><td>'.sanitize($arrResult["world_rank"]).'</td></tr>';
+					$strOut.='<tr><td>'.strtoupper($this->config->get('uc_server_loc')).'-'.$this->user->lang('wp_rank').'</td><td>'.sanitize($arrResult["area_rank"]).'</td></tr>';
+					$strOut.='<tr><td>'.$this->user->lang('wp_realm').'</td><td>'.sanitize($arrResult["realm_rank"]).'</td></tr>';
 					$strOut.='</tr>';
 				}
 			}
