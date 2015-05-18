@@ -29,7 +29,7 @@ class wowprogress_portal extends portal_generic {
 	protected static $path		= 'wowprogress';
 	protected static $data		= array(
 		'name'			=> 'wowprogress',
-		'version'		=> '0.3.3',
+		'version'		=> '0.3.4',
 		'author'		=> 'GodMod',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Shows the WoW Guildprogress',
