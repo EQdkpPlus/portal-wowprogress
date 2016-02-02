@@ -1,9 +1,9 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	EQdkp-Plus Language File
+ *	Package:	WoWprogress Portal Module
  *	Link:		http://eqdkp-plus.eu
  *
- *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
+ *	Copyright (C) 2006-2016 EQdkp-Plus Developer Team
  *
  *	This program is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU Affero General Public License as published
@@ -19,29 +19,25 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-if (!defined('EQDKP_INC')) {
-	die('You cannot access this file directly.');
+if(!defined('EQDKP_INC')){
+	header('HTTP/1.0 404 Not Found');exit;
 }
 
-//Language: English	
-//Created by EQdkp Plus Translation Tool on  2014-12-17 23:17
-//File: portal/wowprogress/language/english.php
-//Source-Language: german
-
 $lang = array( 
-	"wowprogress" => 'WoWProgress',
-	"wowprogress_desc" => 'Shows the WoW Ranks from wowprogress.com ',
-	"wowprogress_name" => 'WoWProgress',
-	"wp_tier" => 'Tier',
-	"wowprogress_f_encounter" => 'Bosskills',
-	"wp_ranking" => 'Ranking',
-	"wp_man" => 'Man',
-	"wp_world" => 'World-Rank',
-	"wp_rank" => 'Rank',
-	"wp_realm" => 'Realm-Rank',
-	"wp_wow_only" => 'This module is for the game "WoW" only.',
-	
+	'wowprogress'					=> 'WoWProgress',
+	'wowprogress_desc'				=> 'Shows the WoW Ranks from wowprogress.com ',
+	'wowprogress_name'				=> 'WoWProgress',
+	'wp_tier'						=> 'Tier',
+	'wowprogress_f_encounter'		=> 'Bosskills',
+	'wowprogress_f_banner'			=> 'Show Banner',
+	'wowprogress_f_guild_id'		=> 'Gilden ID',
+	'wowprogress_f_guild_id_help'	=> 'Put here the guild ID from WoWProgress.',
+	'wp_ranking'					=> 'Ranking',
+	'wp_man'						=> 'Man',
+	'wp_world'						=> 'World-Rank',
+	'wp_rank'						=> 'Rank',
+	'wp_realm'						=> 'Realm-Rank',
+	'wp_wow_only'					=> 'This module is for the game "WoW" only.',
 );
 
 ?>

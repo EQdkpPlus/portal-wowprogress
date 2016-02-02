@@ -3,7 +3,7 @@
  *	Package:	WoWprogress Portal Module
  *	Link:		http://eqdkp-plus.eu
  *
- *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
+ *	Copyright (C) 2006-2016 EQdkp-Plus Developer Team
  *
  *	This program is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU Affero General Public License as published
@@ -19,15 +19,15 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !defined('EQDKP_INC') ){
+if(!defined('EQDKP_INC')){
 	header('HTTP/1.0 404 Not Found');exit;
 }
 
 class wowprogress_portal extends portal_generic {
-	
 	public static $shortcuts = array('puf'	=> 'urlfetcher');
-	protected static $path		= 'wowprogress';
-	protected static $data		= array(
+	
+	protected static $path = 'wowprogress';
+	protected static $data = array(
 		'name'			=> 'wowprogress',
 		'version'		=> '0.3.5',
 		'author'		=> 'GodMod',
@@ -58,6 +58,20 @@ class wowprogress_portal extends portal_generic {
 				'type'		=> 'multiselect',
 				'options'	=> $arrTiers,
 			),
+			'banner' => array(
+				'type'		=> 'dropdown',
+				'options'	=> array(
+					''			=> $this->user->lang('no'),
+					'realm'		=> 'Realm Rank',
+					'region'	=> strtoupper($this->config->get('uc_server_loc')).' Rank',
+					'world'		=> 'World Rank',
+				),
+			),
+			'guild_id' => array(
+				'type'		=> 'text',
+				'size'		=> 12,
+				'dir_help'	=> $this->user->lang('wowprogress_f_guild_id_help'),
+			),
 		);
 		return $settings;
 	}
@@ -68,41 +82,66 @@ class wowprogress_portal extends portal_generic {
 		$strOut = $this->pdc->get('portal.module.wowprogress',false,true);
 		
 		if($strOut === NULL){
-			$arrEncounter = $this->config('encounter');
-			$strBaseURL = $this->buildURL();
-
-			$strOut = '<table class="table fullwidth colorswitch">';
-			foreach($arrEncounter as $strKey){
-				$strURL = $strBaseURL .'rating.'.$strKey.'/json_rank';
-				$strResult = $this->puf->fetch($strURL);
-				$arrResult = json_decode($strResult, true);
-				if ($arrResult != NULL){
-					$strNumbers = str_replace("tier", "", $strKey);
-					$arrNumbers = explode("_", $strNumbers);
-
-					$strOut.='<tr>';
-					$strOut.='<th colspan="2">'.$this->user->lang('wp_ranking').' '.$this->user->lang('wp_tier').' '.$arrNumbers[0];
-					if(isset($arrNumbers[1])) $strOut .= ' - '.$arrNumbers[1].' '.$this->user->lang('wp_man');
-					$strOut.='</th>';
-					$strOut.='</tr>';
-					$strOut.='<tr><td>'.$this->user->lang('wp_world').'</td><td>'.sanitize($arrResult["world_rank"]).'</td></tr>';
-					$strOut.='<tr><td>'.strtoupper($this->config->get('uc_server_loc')).'-'.$this->user->lang('wp_rank').'</td><td>'.sanitize($arrResult["area_rank"]).'</td></tr>';
-					$strOut.='<tr><td>'.$this->user->lang('wp_realm').'</td><td>'.sanitize($arrResult["realm_rank"]).'</td></tr>';
-					
+			if($this->config('banner') != ''){
+				switch($this->position){
+					case 'middle':
+					case 'bottom':
+						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->buildURL('horizontal').'" border="0" /></a></center>';
+						break;
+					default:
+						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->buildURL('vertical').'" border="0" /></a></center>';
+						break;
 				}
+				
+			}else{
+				$strOut = '<table class="table fullwidth colorswitch">';
+				foreach($this->config('encounter') as $strKey){
+					$strResult = $this->puf->fetch($this->buildURL($strKey));
+					$arrResult = json_decode($strResult, true);
+					if ($arrResult != NULL){
+						$strNumbers = str_replace("tier", "", $strKey);
+						$arrNumbers = explode("_", $strNumbers);
+	
+						$strOut.='<tr>';
+						$strOut.='<th colspan="2">'.$this->user->lang('wp_ranking').' '.$this->user->lang('wp_tier').' '.$arrNumbers[0];
+						if(isset($arrNumbers[1])) $strOut .= ' - '.$arrNumbers[1].' '.$this->user->lang('wp_man');
+						$strOut.='</th>';
+						$strOut.='<tr><td>'.$this->user->lang('wp_world').'</td><td>'.sanitize($arrResult["world_rank"]).'</td></tr>';
+						$strOut.='<tr><td>'.strtoupper($this->config->get('uc_server_loc')).'-'.$this->user->lang('wp_rank').'</td><td>'.sanitize($arrResult["area_rank"]).'</td></tr>';
+						$strOut.='<tr><td>'.$this->user->lang('wp_realm').'</td><td>'.sanitize($arrResult["realm_rank"]).'</td></tr>';
+						$strOut.='</tr>';
+					}
+				}
+				$strOut .= '</table>';
 			}
-			$strOut .= '</table>';
+			
 			$this->pdc->put('portal.module.wowprogress',$strOut,3600,false,true);
 		}
 		return $strOut;
 	}
 	
-	private function buildURL(){
-		$url	= "http://www.wowprogress.com/";
-		$search	= array('+',"'"," ");
+	private function buildURL($strType=''){
+		$url	= 'http://www.wowprogress.com/';
+		$search	= array('+',"'",' ');
 		$server	= urlencode(strtolower(str_replace($search, '-', unsanitize($this->config->get('servername')))));
 		$guild	= str_replace($search, '+', urlencode(utf8_strtolower(unsanitize($this->config->get('guildtag')))));
-		$url	.= "guild/" . $this->config->get('uc_server_loc') . "/" . $server  . "/" . $guild . "/";
+		$locate	= $this->config->get('uc_server_loc');
+		$region = $this->config('banner');
+		
+		switch($strType){
+			case 'vertical':
+				$url .= 'guild_img/'.$this->config('guild_id').'/out/type.site/guild_rank.'.$region;
+				break;
+			case 'horizontal':
+				$url .= 'guild_img/'.$this->config('guild_id').'/out/type.forum/guild_rank.'.$region.'/ach_rank.'.$region;
+				break;
+			case 'guild':
+				$url .= 'guild/'.$locate.'/'.$server.'/'.$guild.'/';
+				break;
+			default:
+				$url .= 'guild/'.$locate.'/'.$server.'/'.$guild.'/'.'rating.'.$strType.'/json_rank';
+				break;
+		}
 		return $url;
 	}
 
