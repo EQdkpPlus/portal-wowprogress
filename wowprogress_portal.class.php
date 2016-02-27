@@ -66,6 +66,11 @@ class wowprogress_portal extends portal_generic {
 					'region'	=> strtoupper($this->config->get('uc_server_loc')).' Rank',
 					'world'		=> 'World Rank',
 				),
+				'dependency'=> array(
+					'realm'		=> array('guild_id'),
+					'region'	=> array('guild_id'),
+					'world'		=> array('guild_id'),
+				),
 			),
 			'guild_id' => array(
 				'type'		=> 'text',
