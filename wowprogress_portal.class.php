@@ -91,10 +91,10 @@ class wowprogress_portal extends portal_generic {
 				switch($this->position){
 					case 'middle':
 					case 'bottom':
-						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->buildURL('horizontal').'" border="0" /></a></center>';
+						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->getImage($this->buildURL('horizontal')).'" border="0" /></a></center>';
 						break;
 					default:
-						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->buildURL('vertical').'" border="0" /></a></center>';
+						$strOut = '<center><a href="'.$this->buildURL('guild').'"><img alt="WoW Guild Rankings" src="'.$this->getImage($this->buildURL('vertical')).'" border="0" /></a></center>';
 						break;
 				}
 				
@@ -148,6 +148,23 @@ class wowprogress_portal extends portal_generic {
 				break;
 		}
 		return $url;
+	}
+	
+	private function getImage($strImageURL){
+		$strImageDir = $this->pfh->FolderPath('', 'wowprogress');
+		$strCacheFile = $strImageDir.md5($strImageURL).'.png';
+		//1 hour Cache
+		if(file_exists($strCacheFile) && (filemtime($strCacheFile)+3600 > time())){
+			return $this->pfh->FolderPath('', 'wowprogress', 'absolute').md5($strImageURL).'.png';
+		} else {
+			$image = $this->puf->fetch($strImageURL);
+			if($image){
+				$this->pfh->putContent($strCacheFile, $image);
+				return $this->pfh->FolderPath('', 'wowprogress', 'absolute').md5($strImageURL).'.png';
+			}
+		}
+		
+		return false;
 	}
 
 }
