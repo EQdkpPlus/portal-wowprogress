@@ -29,7 +29,7 @@ class wowprogress_portal extends portal_generic {
 	protected static $path = 'wowprogress';
 	protected static $data = array(
 		'name'			=> 'wowprogress',
-		'version'		=> '0.4.3',
+		'version'		=> '0.4.4',
 		'author'			=> 'GodMod',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Shows the WoW Guildprogress',
@@ -41,7 +41,8 @@ class wowprogress_portal extends portal_generic {
 		'tier8', 'tier9_10', 'tier9_25', 'tier10_10', 'tier10_25', 'tier11', 'tier11_10',
 		'tier11_25','tier12','tier12_10','tier12_25', 'tier13', 'tier13_10','tier13_25',
 		'tier14','tier14_10','tier14_25','tier15', 'tier15_10', 'tier15_25','tier16',
-		'tier16_10', 'tier16_25', 'tier17', 'tier18', 'tier19', 'tier20', 'tier21', 'tier22'
+		'tier16_10', 'tier16_25', 'tier17', 'tier18', 'tier19', 'tier20', 'tier21', 'tier22',
+	    'tier23', 'tier24', 'tier25', 'tier26'
 	);
 
 	protected static $apiLevel = 20;
